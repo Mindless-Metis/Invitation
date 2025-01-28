@@ -20,7 +20,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background-color: #000;
+      background-color: #2c3e50;
       color: #fff;
       display: flex;
       justify-content: center;
@@ -54,11 +54,12 @@
       text-transform: uppercase;
       z-index: 1000;
       transition: opacity 1s ease;
+      cursor: pointer;
     }
 
     .be-our-guest.hidden {
       opacity: 0;
-      pointer-events: none; /* Allow clicks through */
+      pointer-events: none;
     }
 
     /* Flipbook Page Styles */
@@ -84,7 +85,6 @@
       border: none;
     }
 
-    /* Responsive Styles for Mobile and Portrait Mode */
     @media (max-width: 768px) {
       iframe {
         width: 90%;
@@ -101,25 +101,17 @@
   </style>
 </head>
 <body>
-  <!-- Rotate Warning -->
   <div class="rotate-warning" id="rotateWarning">
-    <img src="rotate.png" alt="Rotate Icon">
+    <img src="https://www.gstatic.com/webp/gallery/1.png" alt="Rotate Icon">
     Please rotate your phone to landscape mode to continue.
   </div>
 
-  <!-- "Be Our Guest At..." Overlay -->
-  <div class="be-our-guest" id="beOurGuest">Be our guest at...</div>
+  <div class="be-our-guest" id="beOurGuest" onclick="goToFlipbook()">
+    Be our guest at...
+  </div>
 
-  <!-- Flipbook Page -->
   <div class="flipbook-page" id="flipbookPage">
-    <iframe 
-      src="https://online.anyflip.com/lrtos/qfjx/index.html" 
-      seamless="seamless" 
-      scrolling="no" 
-      frameborder="0" 
-      allowtransparency="true" 
-      allowfullscreen="true">
-    </iframe>
+    <iframe src="https://online.anyflip.com/lrtos/qfjx/index.html" seamless="seamless" scrolling="no" frameborder="0" allowtransparency="true" allowfullscreen="true"></iframe>
   </div>
 
   <script>
@@ -127,27 +119,26 @@
     const beOurGuest = document.getElementById('beOurGuest');
     const flipbookPage = document.getElementById('flipbookPage');
 
-    // Check orientation and show/hide warning
+    function goToFlipbook() {
+      beOurGuest.classList.add('hidden');
+      flipbookPage.classList.add('active');
+    }
+
     function checkOrientation() {
       if (window.innerHeight > window.innerWidth) {
-        // Portrait Mode
         rotateWarning.style.display = 'flex';
         beOurGuest.style.display = 'none';
         flipbookPage.style.display = 'none';
       } else {
-        // Landscape Mode
         rotateWarning.style.display = 'none';
         beOurGuest.style.display = 'flex';
-
-        // Show "Be Our Guest At..." for 2 seconds before transitioning to the flipbook
         setTimeout(() => {
-          beOurGuest.classList.add('hidden'); // Hide "Be Our Guest At..."
-          flipbookPage.classList.add('active'); // Show the flipbook page
-        }, 2000); // 2-second delay
+          beOurGuest.classList.add('hidden');
+          flipbookPage.classList.add('active');
+        }, 2000);
       }
     }
 
-    // Run on load and resize
     window.addEventListener('load', checkOrientation);
     window.addEventListener('resize', checkOrientation);
   </script>
