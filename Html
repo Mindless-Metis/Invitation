@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flipbook School</title>
+  <style>
+    /* General styles */
+    body, html {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      overflow: hidden;
+    }
+
+    /* Video Landing Page */
+    .video-container {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .video-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.4);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      font-size: 2em;
+      font-weight: bold;
+      text-transform: uppercase;
+      transition: opacity 1s ease;
+    }
+
+    /* Adjust opacity of the overlay */
+    .video-overlay.hidden {
+      opacity: 0;
+      pointer-events: none; /* Allow clicks through */
+    }
+
+    /* Flipbook Page Styles */
+    .flipbook-page {
+      display: none;
+      width: 100%;
+      height: 100vh;
+      background: #3498db;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      transition: opacity 1s ease-in-out;
+    }
+
+    .flipbook-page.active {
+      display: flex;
+    }
+
+    iframe {
+      width: 80%;
+      height: 80%;
+      border: none;
+    }
+  </style>
+</head>
+<body>
+  <!-- Video Landing Page -->
+  <div class="video-container" onclick="playVideo()">
+    <video id="gateVideo" src="Tere pyar mein (practice video) #bollywood #music #arjitsingh #nikhitagandhi #dancepluspro [TubeRipper.com].mp4" preload="auto" muted></video>
+    <div class="video-overlay" id="videoOverlay">Click to Enter</div>
+  </div>
+
+  <!-- Flipbook Page -->
+  <div class="flipbook-page" id="flipbookPage">
+  <iframe style="width:1366px;height:768px" src="https://online.anyflip.com/lrtos/qfjx/index.html"  seamless="seamless" scrolling="no" frameborder="0" allowtransparency="true" allowfullscreen="true" ></iframe>
+  </div>
+
+  <script>
+    function playVideo() {
+      const video = document.getElementById('gateVideo');
+      const videoOverlay = document.getElementById('videoOverlay');
+      const flipbookPage = document.getElementById('flipbookPage');
+
+      // Hide overlay text and play the video
+      videoOverlay.classList.add('hidden');
+      video.play();
+
+      // Stop the video after 5 seconds and transition to the flipbook page
+      setTimeout(() => {
+        video.pause(); // Pause the video after 5 seconds
+        video.currentTime = 0; // Reset video to the start
+        video.parentElement.style.display = 'none'; // Hide the video container
+        flipbookPage.classList.add('active'); // Show the flipbook page
+      }, 1000); // 1 seconds
+    }
+  </script>
+</body>
+</html>
