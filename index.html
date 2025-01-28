@@ -13,6 +13,30 @@
       overflow: hidden;
     }
 
+    /* Rotate Notification Styles */
+    .rotate-warning {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #000;
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      z-index: 9999;
+      text-align: center;
+      font-size: 1.5em;
+    }
+
+    .rotate-warning img {
+      width: 100px;
+      height: auto;
+      margin-bottom: 20px;
+    }
+
     /* Video Landing Page */
     .video-container {
       position: relative;
@@ -91,8 +115,14 @@
   </style>
 </head>
 <body>
+  <!-- Rotate Warning -->
+  <div class="rotate-warning" id="rotateWarning">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Rotate_device_icon.svg/1024px-Rotate_device_icon.svg.png" alt="Rotate Icon">
+    Please rotate your phone to landscape mode to continue.
+  </div>
+
   <!-- Video Landing Page -->
-  <div class="video-container" onclick="playVideo()">
+  <div class="video-container" id="videoContainer" onclick="playVideo()">
     <video id="gateVideo" src="Tere pyar mein (practice video) #bollywood #music #arjitsingh #nikhitagandhi #dancepluspro [TubeRipper.com].mp4" preload="auto" muted></video>
     <div class="video-overlay" id="videoOverlay">Be our guest at..</div>
   </div>
@@ -110,4 +140,44 @@
   </div>
 
   <script>
-    function playV
+    const rotateWarning = document.getElementById('rotateWarning');
+    const videoContainer = document.getElementById('videoContainer');
+    const flipbookPage = document.getElementById('flipbookPage');
+
+    // Check orientation and show/hide warning
+    function checkOrientation() {
+      if (window.innerHeight > window.innerWidth) {
+        // Portrait Mode
+        rotateWarning.style.display = 'flex';
+        videoContainer.style.display = 'none';
+        flipbookPage.style.display = 'none';
+      } else {
+        // Landscape Mode
+        rotateWarning.style.display = 'none';
+        videoContainer.style.display = 'block';
+      }
+    }
+
+    // Run on load and resize
+    window.addEventListener('load', checkOrientation);
+    window.addEventListener('resize', checkOrientation);
+
+    function playVideo() {
+      const video = document.getElementById('gateVideo');
+      const videoOverlay = document.getElementById('videoOverlay');
+
+      // Hide overlay text and play the video
+      videoOverlay.classList.add('hidden');
+      video.play();
+
+      // Stop the video after 5 seconds and transition to the flipbook page
+      setTimeout(() => {
+        video.pause(); // Pause the video after 5 seconds
+        video.currentTime = 0; // Reset video to the start
+        video.parentElement.style.display = 'none'; // Hide the video container
+        flipbookPage.classList.add('active'); // Show the flipbook page
+      }, 5000); // 5 seconds
+    }
+  </script>
+</body>
+</html>
