@@ -73,6 +73,21 @@
       height: 80%;
       border: none;
     }
+
+    /* Responsive Styles for Mobile and Portrait Mode */
+    @media (max-width: 768px) {
+      iframe {
+        width: 90%;
+        height: 60%;
+      }
+    }
+
+    @media (orientation: portrait) {
+      iframe {
+        width: 100%;
+        height: 70%;
+      }
+    }
   </style>
 </head>
 <body>
@@ -84,27 +99,15 @@
 
   <!-- Flipbook Page -->
   <div class="flipbook-page" id="flipbookPage">
-  <iframe style="width:1366px;height:768px" src="https://online.anyflip.com/lrtos/qfjx/index.html"  seamless="seamless" scrolling="no" frameborder="0" allowtransparency="true" allowfullscreen="true" ></iframe>
+    <iframe 
+      src="https://online.anyflip.com/lrtos/qfjx/index.html" 
+      seamless="seamless" 
+      scrolling="no" 
+      frameborder="0" 
+      allowtransparency="true" 
+      allowfullscreen="true">
+    </iframe>
   </div>
 
   <script>
-    function playVideo() {
-      const video = document.getElementById('gateVideo');
-      const videoOverlay = document.getElementById('videoOverlay');
-      const flipbookPage = document.getElementById('flipbookPage');
-
-      // Hide overlay text and play the video
-      videoOverlay.classList.add('hidden');
-      video.play();
-
-      // Stop the video after 5 seconds and transition to the flipbook page
-      setTimeout(() => {
-        video.pause(); // Pause the video after 5 seconds
-        video.currentTime = 0; // Reset video to the start
-        video.parentElement.style.display = 'none'; // Hide the video container
-        flipbookPage.classList.add('active'); // Show the flipbook page
-      }, 1000); // 1 seconds
-    }
-  </script>
-</body>
-</html>
+    function playV
